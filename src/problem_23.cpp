@@ -53,16 +53,16 @@ public:
         ListNode * min_ptr = NULL;
         int min_index = -1;
 
-		// remove NULL list_headers
-		for(vector<ListNode*>::iterator iter = lists.begin(); iter != lists.end(); ++iter){
-			if((*iter) == NULL){
-				iter = lists.erase(iter);
-				--iter;
-			}
-		}
+        // remove NULL list_headers
+        for(vector<ListNode*>::iterator iter = lists.begin(); iter != lists.end(); ++iter){
+            if((*iter) == NULL){
+                iter = lists.erase(iter);
+                --iter;
+            }
+        }
         while(lists.size() > 0){
             int index = 0;
-			int min_val = 0x7fffffff;
+            int min_val = 0x7fffffff;
             for(vector<ListNode *>::iterator iter = lists.begin(); iter != lists.end();++iter, ++index){
                 if((*iter)->val < min_val){
                     min_val = (*iter)->val;
@@ -76,19 +76,18 @@ public:
             if(lists[min_index] == NULL)
                 lists.erase(lists.begin() + min_index);
         }
-		return head->next;
+        return head->next;
     }
 };
 
 int main(){
     vector<ListNode*> lists;
-	for(int i = 4; i <= 8; i++){
-		lists.push_back(createList(i));
-		printList(lists.back());
-	}
+    for(int i = 4; i <= 8; i++){
+        lists.push_back(createList(i));
+        printList(lists.back());
+    }
     Solution solu = Solution();
-    // ListNode * head = solu.mergeTwoLists(l1, l2);
-	ListNode * head = solu.mergeKLists(lists);
+    ListNode * head = solu.mergeKLists(lists);
     printList(head);
     return 0;
 }
