@@ -12,7 +12,7 @@ struct ListNode{
 ListNode * createList(int x){
     ListNode *head = new ListNode(1 + rand() % 3);
     ListNode * p = head;
-    int n = 0;
+    int n = 1;
     while(n++ <= x){
         p->next = new ListNode(3 * n + rand() % 3);
         p = p->next;
@@ -51,11 +51,18 @@ public:
         ListNode * head = new ListNode(-1);
         ListNode * p = head;
         ListNode * min_ptr = NULL;
-        int min_val = 0x7fffffff;
         int min_index = -1;
 
+		// remove NULL list_headers
+		for(vector<ListNode*>::iterator iter = lists.begin(); iter != lists.end(); ++iter){
+			if((*iter) == NULL){
+				iter = lists.erase(iter);
+				--iter;
+			}
+		}
         while(lists.size() > 0){
             int index = 0;
+			int min_val = 0x7fffffff;
             for(vector<ListNode *>::iterator iter = lists.begin(); iter != lists.end();++iter, ++index){
                 if((*iter)->val < min_val){
                     min_val = (*iter)->val;
@@ -69,16 +76,19 @@ public:
             if(lists[min_index] == NULL)
                 lists.erase(lists.begin() + min_index);
         }
+		return head->next;
     }
 };
 
 int main(){
-    ListNode * l1 = createList(4);
-    ListNode * l2 = createList(5);
+    vector<ListNode*> lists;
+	for(int i = 4; i <= 8; i++){
+		lists.push_back(createList(i));
+		printList(lists.back());
+	}
     Solution solu = Solution();
-    printList(l1);
-    printList(l2);
-    ListNode * head = solu.mergeTwoLists(l1, l2);
+    // ListNode * head = solu.mergeTwoLists(l1, l2);
+	ListNode * head = solu.mergeKLists(lists);
     printList(head);
     return 0;
 }
