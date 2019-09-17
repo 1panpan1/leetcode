@@ -14,7 +14,7 @@ public:
         for(int i =0; i< height.size() - 1; i++){
             int difference = height[i + 1] - height[i];
             if(difference < 0) mstack.push(make_pair(difference, i));
-            else if(difference > 0 and mstack.size() > 0){
+            else if(difference > 0 && mstack.size() > 0){
                 while(difference > 0 && mstack.size() >0){
                     pair<int, int> tmp = mstack.top();
                     mstack.pop();
